@@ -1,0 +1,4 @@
+teknikservis/*
+teknikservis/*.html linguist-detectable=false
+teknikservis/*.css linguist-detectable=false
+teknikservis/*.js linguist-detectable=false
