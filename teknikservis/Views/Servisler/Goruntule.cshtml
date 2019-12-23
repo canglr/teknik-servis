@@ -1,0 +1,160 @@
+﻿@model teknikservis.Models.Servisler           
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <title>Silivri Bilgisayar > Müşteri: @Model.Musteri.ToString().ToUpper()</title>
+</head>
+<body>
+    
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><b>Servis Bilgileri <button onclick="window.print();" class="btn btn-default" type="button"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button></b></h3>
+        </div>
+        <div class="panel-body">
+           
+
+            <table class="table table-bordered">
+                <tr>
+                    <th>Servis No</th>
+                    <th>Müşteri Adı</th>
+                </tr>
+                <tr>
+                    <td>@Model.ID</td>
+                    <td>@Model.Musteri.ToString().ToUpper()</td>
+                </tr>
+
+                <tr>
+                    <th>Telefon</th>
+                    <th>Cihaz</th>
+                </tr>
+                <tr>
+                    <td>@Model.Tel</td>
+                    <td>
+
+
+                       @if (Convert.ToInt32(@Model.Cihaz) == 1)
+                       {
+                           Write("Masaüstü");
+                       }
+                       else if (Convert.ToInt32(@Model.Cihaz) == 2)
+                       {
+                           Write("Dizüstü");
+                       }
+                       else if (Convert.ToInt32(@Model.Cihaz) == 3)
+                       {
+                           Write("Telefon");
+                       }
+                       else if (Convert.ToInt32(@Model.Cihaz) == 4)
+                       {
+                           Write("Tablet");
+                       }
+                       else if (Convert.ToInt32(@Model.Cihaz) == 5)
+                       {
+                           Write("Monitor");
+                       }
+                       else if (Convert.ToInt32(@Model.Cihaz) == 6)
+                       {
+                           Write("Elektronik Eşya");
+                       }
+                       else if (Convert.ToInt32(@Model.Cihaz) == 7)
+                       {
+                           Write("Diğer");
+                       }
+                       else
+                       {
+                           Write("Hata Oluştu !");
+                       }
+                        
+                           
+                      
+                           
+                    </td>
+                </tr>
+
+
+
+                <tr>
+                    <th>Model</th>
+                    <th>Durum</th>
+                </tr>
+                <tr>
+                    <td>@Model.Model</td>
+                    <td style="color:@if (Model.Durum == 1) { Write("#f39c12"); } else if (Model.Durum == 2) { Write("#2980b9"); } else if (Model.Durum == 3) { Write("#e74c3c"); };">
+
+
+                        @if (Convert.ToInt32(Model.Durum) == 1)
+                        {
+                            WriteLiteral("<b>Bekliyor</b>");
+                        }
+                        else if (Convert.ToInt32(Model.Durum) == 2)
+                        {
+                            WriteLiteral("<b>Yapıldı</b>");
+                        }
+                        else if (Convert.ToInt32(Model.Durum) == 3)
+                        {
+                            WriteLiteral("<b>İade</b>");
+                        }
+                        else
+                        {
+                            Write("Hata Oluştu !");
+                        }
+
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <th>Fiyat</th>
+                    <th>Tahsilat</th>
+                </tr>
+                <tr>
+                    <td><b>@Model.Fiyat &#8378;</b></td>
+                    <td @if (Model.Tahsilat == Model.Fiyat) { WriteLiteral("style='color:#2980b9;'"); } else if (Model.Tahsilat != Model.Fiyat && Model.Tahsilat != 0) { WriteLiteral("style='color:#e74c3c;'"); }><b>@Model.Tahsilat &#8378;</b></td>
+                </tr>
+
+
+
+                <tr>
+                    <th>Kayıt Tarihi</th>
+                    <th>Son Güncellenme</th>
+                </tr>               
+                <tr>
+                    <td>@Model.Olusturulma_Tarihi</td>
+                    <td>@Model.Guncellenme_Tarihi</td>
+                </tr>
+
+                <tr>
+                    <th colspan="2">Açıklama</th>
+                </tr>
+
+                <tr>
+                    <td colspan="2">@Model.Aciklama</td>
+                </tr>
+
+
+                <tr>
+                    <th colspan="2">Yapılan İşlem</th>
+                </tr>
+
+                <tr>
+                    <td colspan="2">@Model.Yapilan_İslem</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" align="right"><span style="font-size:10px; font-weight: bold;">Oluşturulma Tarihi:@DateTime.Now</span></td>
+                </tr>
+
+            </table>
+
+
+
+        </div>
+    </div>
+
+
+
+    
+</body>
+</html>

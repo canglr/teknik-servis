@@ -1,0 +1,146 @@
+﻿@model teknikservis.ViewModels.GrupModel
+@using PagedList.Mvc;
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-github" data-toggle="modal" data-target="#myModal">
+    Yeni Grup
+</button>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Yeni Grup</h4>
+            </div>
+            <div class="modal-body">
+                <div id="yaz"></div>
+                <label>Grup Bilgileri</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></div>
+                    <input type="text" id="ad" class="form-control" placeholder="Grup Adı*">
+                </div>
+                <br />
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">İptal</button>
+                <button type="button" id="gonder" class="btn btn-primary">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.PagedListPager(Model.Gruplar, sayfa => Url.Action("", new RouteValueDictionary
+
+    {
+        {"Sayfa",sayfa }
+    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { UpdateTargetId = "ajax-main" }))
+
+<table class="table table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>GRUP NO</th>
+            <th>AD</th>
+
+
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var grup in Model.Gruplar)
+        {
+            <tr>
+                <td>@grup.ID</td>
+                <td>@grup.Grup_Ad</td>
+
+
+                <td><a class="btn btn-facebook" target="_blank" href="javascript:popUp('/Gruplar/Guncelle/@teknikservis.Controllers.Guvenlik.SİFRELE(grup.ID.ToString())')" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+                <td>
+
+                    <a class="btn btn-google" href="/Gruplar/Sil/@teknikservis.Controllers.Guvenlik.SİFRELE(grup.ID.ToString())" role="button"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+
+@Html.PagedListPager(Model.Gruplar, sayfa => Url.Action("", new RouteValueDictionary
+
+    {
+        {"Sayfa",sayfa /* sayfa */ }
+    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { UpdateTargetId = "ajax-main" }))
+
+@section js{
+
+    <script src="/cisr/dist/js/maskedinput-1.3.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#gonder').click(function () {
+                var data = {
+                    "ad": $("#ad").val()
+
+                };
+
+
+                if (document.getElementById("ad").value == "") {
+                    $("#yaz").html("<div class=\"alert alert-danger\" role=\"alert\">Grup Adı Boş Geçilemez !</div>");
+                }
+                else {
+
+                    $.ajax({
+                        url: "/Gruplar/YeniGrup",
+                        type: "POST",
+                        data: JSON.stringify(data),
+                        dataType: "json",
+                        contentType: "application/json",
+                        success: function (bilgi) {
+                            $("#yaz").html(bilgi.mesaj);
+                            if (bilgi.islem) {
+                                $("#yaz").html(bilgi.mesaj);
+                            }
+                        },
+                        error: function () {
+                            $("#yaz").html(bilgi.mesaj);
+
+                        }
+                    });
+
+
+                }
+
+
+
+            });
+        });
+
+
+
+
+        function popUp(URL) {
+            day = new Date();
+            id = day.getTime();
+            eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=0,location=1,statusbar=0,menubar=0,resizable=0,width=350,height=580,left = 483,top = 84');");
+        }
+
+        $(document).ready(function () {
+            $("#telefon").mask("(999) 999-9999");
+        })
+
+
+    </script>
+
+
+
+
+}
+

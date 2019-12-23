@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.baslik = "Ana Sayfa";
+    Layout = "~/Views/Anayapi/_Layout.cshtml";
+    ViewBag.icbaslik = ViewBag.baslik;
+}
+
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+
+
+        <div class="col-md-4">
+            <div class="info-box">
+                <!-- Apply any bg-* class to to the icon to color it -->
+                <span class="info-box-icon bg-blue"><i class="fa fa-try"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">TOPLAM FİYAT</span>
+                    <span class="info-box-number">@ViewData["toplamfiyat"]</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="info-box">
+                <!-- Apply any bg-* class to to the icon to color it -->
+                <span class="info-box-icon bg-green"><i class="fa fa-try"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">TOPLAM TAHSİLAT</span>
+                    <span class="info-box-number">@ViewData["toplamtahsilat"]</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+
+
+
+        <div class="col-md-4">
+            <div class="info-box">
+                <!-- Apply any bg-* class to to the icon to color it -->
+                <span class="info-box-icon bg-red"><i class="fa fa-try"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">KALAN ALACAK</span>
+                    <span class="info-box-number">@ViewData["toplamkazanc"]</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+
+
+        <div class="col-md-4">
+            <div class="info-box">
+                <!-- Apply any bg-* class to to the icon to color it -->
+                <span class="info-box-icon bg-green"><i class="glyphicon glyphicon-cog"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">TOPLAM SERVİSLER</span>
+                    <span class="info-box-number">@ViewData["servistoplam"]</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="info-box">
+                <!-- Apply any bg-* class to to the icon to color it -->
+                <span class="info-box-icon bg-blue"><i class="glyphicon glyphicon-cog"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">YAPILAN SERVİSLER</span>
+                    <span class="info-box-number">@ViewData["servisyapildi"]</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="info-box">
+                <!-- Apply any bg-* class to to the icon to color it -->
+                <span class="info-box-icon bg-yellow"><i class="glyphicon glyphicon-cog"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">BEKLEYEN SERVİSLER</span>
+                    <span class="info-box-number">@ViewData["servisbekleyen"]</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+
+        <div class="col-md-4">
+            <div class="info-box">
+                <!-- Apply any bg-* class to to the icon to color it -->
+                <span class="info-box-icon bg-red"><i class="glyphicon glyphicon-cog"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">İADE EDİLEN SERVİSLER</span>
+                    <span class="info-box-number">@ViewData["servisiade"]</span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div>
+
+    </div>
+</div>
+
+

@@ -1,0 +1,219 @@
+﻿@model teknikservis.ViewModels.ServislerModel
+@using PagedList;
+@using PagedList.Mvc;
+
+
+<a class="btn btn-primary pull-right" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Arama Yap
+</a>
+
+<div class="collapse" id="collapseExample">
+
+
+
+
+    <div class="col-sm-4 pull-right">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Ara</h3>
+            </div>
+            <div class="panel-body">
+
+                <form name="ara" method="post">
+                    <select name="arasec" class="form-control">
+                        <option value="1">SERVİS NO</option>
+                        <option value="2">MÜŞTERİ</option>
+                    </select>
+                    <br />
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+                        <input type="text" name="ara" autocomplete="off" class="form-control" placeholder="Ara">
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right margin">Ara</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-github" data-toggle="modal" data-target="#myModal">
+    Yeni Servis
+</button>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Yeni Servis</h4>
+            </div>
+            <div class="modal-body">
+                <div id="yaz"></div>
+                <label>Müşteri Bilgileri</label>
+                <div class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></div>
+                    <input type="text" id="musteri" class="form-control" placeholder="Müşteri*">
+                </div>
+                <br />
+                <div class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span></div>
+                    <input type="text" id="telefon" class="form-control" placeholder="Telefon*">
+                </div>
+                <br />
+                <textarea class="form-control" id="adres" placeholder="Adres"></textarea>
+
+                <hr />
+
+                <label>Cihaz Bilgileri</label>
+
+                <div class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span></div>
+                    <input type="text" id="model" class="form-control" placeholder="Model">
+                </div><br />
+                <div class="input-group">
+                    <div class="input-group-addon"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></div>
+                    <select id="cihaz" class="form-control">
+                        <option value="1">Masaüstü</option>
+                        <option value="2">Dizüstü</option>
+                        <option value="3">Telefon</option>
+                        <option value="4">Tablet</option>
+                        <option value="5">Monitör</option>
+                        <option value="6">Elektronik Eşya</option>
+                        <option value="7">Diğer</option>
+                    </select>
+                </div>
+
+                <br />
+                <textarea class="form-control" id="aciklama" placeholder="Açıklama*"></textarea>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">İptal</button>
+                <button type="button" id="gonder" class="btn btn-primary">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.PagedListPager(Model.Servisler, sayfa => Url.Action("", new RouteValueDictionary
+
+    {
+        {"Sayfa",sayfa }
+    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { UpdateTargetId = "ajax-main" }))
+
+<b><i class="fa fa-refresh" aria-hidden="true"></i> @DateTime.Now</b>
+<table class="table table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>SERVİS NO</th>
+            <th>MÜŞTERİ</th>
+            <th>TELEFON</th>
+            <th>CİHAZ</th>
+            <th>MODEL</th>
+            <th>DURUM</th>
+            <th>FİYAT</th>
+            <th>TAHSİLAT</th>
+            <th>KAYIT TARİHİ</th>
+            <th>AÇIKLAMA</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var servis in Model.Servisler)
+        {
+            <tr>
+                <td>@servis.ID</td>
+                <td><strong style="color:#607D8B;">@servis.Musteri.ToString().ToUpper()</strong></td>
+                <td>@servis.Tel</td>
+                <td style="color:#2C3E50;">
+
+
+                    @if (Convert.ToInt32(@servis.Cihaz) == 1)
+                    {
+                        WriteLiteral("<b>Masaüstü</b>");
+                    }
+                    else if (Convert.ToInt32(@servis.Cihaz) == 2)
+                    {
+                        WriteLiteral("<b>Dizüstü</b>");
+                    }
+                    else if (Convert.ToInt32(@servis.Cihaz) == 3)
+                    {
+                        WriteLiteral("<b>Telefon</b>");
+                    }
+                    else if (Convert.ToInt32(@servis.Cihaz) == 4)
+                    {
+                        WriteLiteral("<b>Tablet</b>");
+                    }
+                    else if (Convert.ToInt32(@servis.Cihaz) == 5)
+                    {
+                        WriteLiteral("<b>Monitor</b>");
+                    }
+                    else if (Convert.ToInt32(@servis.Cihaz) == 6)
+                    {
+                        WriteLiteral("<b>Elektronik Eşya</b>");
+                    }
+                    else if (Convert.ToInt32(@servis.Cihaz) == 7)
+                    {
+                        WriteLiteral("<b>Diğer</b>");
+                    }
+                    else
+                    {
+                        WriteLiteral("<b>Hata Oluştu !</b>");
+                    }
+
+                </td>
+
+                <td>@servis.Model</td>
+                <td style="color:@if (servis.Durum == 1) { Write("#f39c12"); } else if (servis.Durum == 2) { Write("#2980b9"); } else if (servis.Durum == 3) { Write("#e74c3c"); };">
+
+                    @if (Convert.ToInt32(@servis.Durum) == 1)
+                    {
+                        WriteLiteral("<b>Bekliyor</b>");
+                    }
+                    else if (Convert.ToInt32(@servis.Durum) == 2)
+                    {
+                        WriteLiteral("<b>Yapıldı</b>");
+                    }
+                    else if (Convert.ToInt32(@servis.Durum) == 3)
+                    {
+                        WriteLiteral("<b>İade</b>");
+                    }
+                    else
+                    {
+                        Write("Hata Oluştu !");
+                    }
+
+                </td>
+                <td><b>@servis.Fiyat <i class="fa fa-try"></i></b></td>
+                <td align="center" @if (servis.Tahsilat == servis.Fiyat) { WriteLiteral("style='color:#2980b9;'"); } else if (servis.Tahsilat != servis.Fiyat && servis.Tahsilat != 0) { WriteLiteral("style='color:#e74c3c;'"); }><b>@servis.Tahsilat <i class="fa fa-try"></i></b></td>
+                <td>@servis.Olusturulma_Tarihi</td>
+                <td>@servis.Aciklama</td>
+                <td><a class="btn btn-facebook" target="_blank" href="javascript:popUp('/Servisler/Goruntule/@teknikservis.Controllers.Guvenlik.SİFRELE(servis.ID.ToString())')" role="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></td>
+                <td><a class="btn btn-facebook" target="_blank" href="javascript:popUp('/Servisler/Guncelle/@teknikservis.Controllers.Guvenlik.SİFRELE(servis.ID.ToString())')" role="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+                <td>
+
+                    <a class="btn btn-google" href="/Servisler/Sil/@teknikservis.Controllers.Guvenlik.SİFRELE(servis.ID.ToString())" role="button"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+
+@Html.PagedListPager(Model.Servisler, sayfa => Url.Action("", new RouteValueDictionary
+
+    {
+        {"Sayfa",sayfa }
+    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { UpdateTargetId = "ajax-main" }))

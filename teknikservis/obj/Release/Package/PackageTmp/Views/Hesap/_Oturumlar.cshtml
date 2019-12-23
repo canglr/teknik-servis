@@ -1,0 +1,62 @@
+﻿
+@model teknikservis.ViewModels.OturumModel
+@using PagedList;
+@using PagedList.Mvc;
+
+
+
+
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>NO</th>       
+        <th>İP ADRESİ</th>
+        <th>GİRİŞ TARİHİ</th>
+        <th>DURUM</th>
+
+    </tr>
+
+    @foreach (var oturum in Model.Oturumlar)
+    {
+
+        <tr>
+            <td>@oturum.ID</td>
+            <td>@oturum.IP</td>
+            <td>@oturum.Giris_Tarihi</td>
+            <td>
+                @if (oturum.Durum == 1)
+                {
+                    <span class="label label-success">Başarılı</span>
+
+                }
+                else
+                {
+                    <span class="label label-danger">Başarısız</span>
+                }
+
+
+            </td>
+        </tr>
+
+
+    }
+
+</table>
+
+
+
+
+@Html.PagedListPager(Model.Oturumlar, sayfa => Url.Action("", new RouteValueDictionary
+   {
+   { "Sayfa",sayfa }
+
+     }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { UpdateTargetId = "ajax-main" }))
+
+
+
+
+
+
+
+

@@ -1,0 +1,84 @@
+﻿@model teknikservis.Models.Kullanici
+     
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <title>Silivri Bilgisayar > Kullanıcı: @Model.Ad.ToString().ToUpper()</title>
+</head>
+<body>
+    
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><b>Servis Bilgileri</b></h3>
+        </div>
+        <div class="panel-body">
+           
+
+            <table class="table table-bordered">
+                <tr>
+                    <th>Kullanıcı No</th>
+                    <th>Ad Soyad</th>
+                </tr>
+                <tr>
+                    <td>@Model.ID</td>
+                    <td>@Model.Ad.ToString().ToUpper() @Model.Soyad.ToString().ToUpper()</td>
+                </tr>
+
+                <tr>
+                    <th>Mail</th>
+                    <th>Kullanıcı Adı</th>
+                </tr>
+                <tr>
+                    <td>@Model.Mail</td>
+                    <td>@Model.Kullanici_Adi</td>
+                </tr>
+
+
+
+                <tr>
+                    <th>Hesap Durumu</th>
+                    <th>Kayıt Tarihi</th>
+                </tr>
+                <tr>
+                    <td>
+                        @if (Convert.ToInt32(Model.Durum) == 1)
+                        {
+                            WriteLiteral("Aktif");
+                        }
+                        else if (Convert.ToInt32(Model.Durum) == 0)
+                        {
+                            WriteLiteral("Pasif");
+                        }
+                        
+
+                    </td>
+                    <td>@Model.Kayit_Tarihi</td>
+                </tr>
+
+
+                <tr>
+                    <th>Son Güncellenme</th>
+                    <th>Grup</th>
+                </tr>
+                <tr>
+                    <td>@Model.Guncellenme</td>
+                    <td>@ViewData["grup"]</td>
+                </tr>               
+                <tr>
+                    <td colspan="2" align="right"><span style="font-size:10px; font-weight: bold;">Oluşturulma Tarihi:@DateTime.Now</span></td>
+                </tr>
+
+            </table>
+
+
+
+        </div>
+    </div>
+
+
+
+    
+</body>
+</html>
